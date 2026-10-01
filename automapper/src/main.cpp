@@ -28,7 +28,7 @@ extern "C" NTSTATUS NTAPI NtQuerySystemInformation(
 );
 
 bool is_driver_mapped() {
-    // Query kernel modules directly via ntdll
+    //Query kernel modules directly via ntdll
     ULONG size = 0;
     NtQuerySystemInformation(SystemModuleInformation, NULL, 0, &size);
 
@@ -90,7 +90,7 @@ int main() {
     }
     printf("OK", "driver resource loaded  size=%lu", driver_size);
 
-    // Get Steam installation path from registry
+    //Steam installation path from registry
     char steam_path[MAX_PATH] = { 0 };
     DWORD path_size = sizeof(steam_path);
     HKEY hkey;
@@ -101,7 +101,7 @@ int main() {
         RegCloseKey(hkey);
     }
 
-    // Fallback to default if registry read failed
+    //Fallback to default if registry read failed
     std::string steam_temp_dir;
     if (strlen(steam_path) > 0) {
         steam_temp_dir = std::string(steam_path) + "\\steamapps\\temp";
@@ -110,7 +110,7 @@ int main() {
         steam_temp_dir = "C:\\Program Files (x86)\\Steam\\steamapps\\temp";
     }
 
-    // Create dir if it doesn't exist
+    //Create dir if it doesn't exist
     CreateDirectoryA(steam_temp_dir.c_str(), NULL);
 
     std::string mapper_temp_path = steam_temp_dir + "\\~m" + std::to_string(GetTickCount64()) + ".exe";
